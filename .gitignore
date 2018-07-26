@@ -11,6 +11,7 @@ deployment/
 images/
 test/
 temp/
+image_subset
 
 
 #======================================

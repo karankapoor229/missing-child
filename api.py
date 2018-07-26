@@ -19,6 +19,7 @@ def create_missing(body):
     child.image_url = body["imageUrl"]
     child.child_name = body["childName"]
     child.guardian_name = body["guardianName"]
+    child.age = body["age"]
     child.image_path = "images/" + str(child_id)
     requests_image(body["imageUrl"], "images/" + str(child_id))
     try:
@@ -45,6 +46,11 @@ def find_missing(body):
     }
 
 
+@hug.get('/get-child/{child_id}')
+def get_child(child_id: str):
+    child = Child.objects(child_id=child_id)
+
+
 @hug.get('/missing-children/{page_number}')
 def missing_children(page_number: int):
     children_data = []
@@ -65,4 +71,23 @@ def missing_children(page_number: int):
     return {
         'children': children_data,
         'next': next_page
+    }
+
+
+@hug.get('/missing-children-list')
+def missing_children_list():
+    children_data = []
+    children = Child.objects[: 20]
+    for child in children:
+        children_data.append({
+            'child_id': child['child_id'],
+            'child_name': child['child_name'],
+            'age': child['age'],
+            'place_of_missing': child['place_of_missing'],
+            'guardian_name': child['guardian_name'],
+            'image_url': child['image_url'],
+            'phone_number': child['phone_number']
+        })
+    return {
+        'children': children_data,
     }
