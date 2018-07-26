@@ -1,0 +1,15 @@
+#!/bin/bash
+NAME="tasks"                           # Name of the application
+FACEDIR=/home/karan/faceapi/src/                 # Django project directory
+USER=karan                             # User to run as
+ENVDIR=/home/karan/faceapienv/bin
+echo "Starting $NAME as `whoami`"
+
+# Activate the virtual environment
+source $ENVDIR/activate
+
+cd $FACEDIR
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should
+# not daemonize themselves (do not use --daemon)
+exec celery -A celery_tasks.tasks worker --concurrency=5

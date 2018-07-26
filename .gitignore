@@ -7,7 +7,10 @@ coverage/
 venv/
 tmp/
 resources/
+deployment/
+images/
 test/
+temp/
 
 
 #======================================

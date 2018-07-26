@@ -1,0 +1,15 @@
+#!/bin/bash
+NAME="gunicorn"                           # Name of the application
+FACEDIR=/home/karan/missing-child                 # Django project directory
+USER=karan                             # User to run as
+ENVDIR=/home/karan/missing-child/venv/bin
+echo "Starting $NAME as `whoami`"
+
+# Activate the virtual environment
+source $ENVDIR/activate
+export PYTHONPATH="/home/karan/missing-children"
+cd $FACEDIR
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should
+# not daemonize themselves (do not use --daemon)
+exec gunicorn api:__hug_wsgi__
