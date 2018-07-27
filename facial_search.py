@@ -7,6 +7,8 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
 def facial_search(image_to_test):
+    name = None
+    status = False
     image_dir = "image_subset/"
     test_image = face_recognition.load_image_file(image_to_test)
     known_face_encodings = []
@@ -17,7 +19,7 @@ def facial_search(image_to_test):
             image = face_recognition.load_image_file(filename)
             image_face_encoding = face_recognition.face_encodings(image)[0]
             known_face_encodings.append(image_face_encoding)
-            child_id = filename.split("\\")[-1].split(".")[0]
+            child_id = filename.split("/")[-1].split(".")[0]
             known_face_names.append(child_id)
 
     face_locations = face_recognition.face_locations(test_image)
